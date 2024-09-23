@@ -25,6 +25,9 @@ const menus = {
 };
 
 let totalCost = 0;
+let order_list="";
+let items = [];
+let prices = [];
 
 function showMenu(outlet) {
     const outletName = outlet.charAt(0).toUpperCase() + outlet.slice(1);
@@ -38,7 +41,7 @@ function showMenu(outlet) {
         const li = document.createElement("li");
         li.innerHTML = `${menuItem.item} - ₹${menuItem.price}`;
         li.onclick = function() {
-            addToCart(menuItem.price);
+            addToCart(menuItem.price , menuItem.item);
         };
         menuList.appendChild(li);
     });
@@ -47,8 +50,14 @@ function showMenu(outlet) {
     updateTotalCost();
 }
 
-function addToCart(price) {
+function addToCart(price, item) {
     totalCost += price;
+    order_list += item + "price: " + price + "\n";
+    items.push(item);
+    prices.push(price);
+
+       
+
     updateTotalCost();
 }
 
@@ -56,7 +65,86 @@ function updateTotalCost() {
     document.getElementById("total-cost").textContent = totalCost;
 }
 
+// function placeOrder() {
+//     order_list += "Total Price: " + totalCost;
+//     console.log("YOUR ORDER IS SUCCESSFULLY PLACED"+ order_list);
+//     alert("YOUR ORDER IS SUCCESSFULLY PLACED\n"+ order_list);
+// }
+
 function placeOrder() {
-    console.log("YOUR ORDER IS SUCCESSFULLY PLACED");
-    alert("YOUR ORDER IS SUCCESSFULLY PLACED");
+    // let order_list = "";
+    const menuItems = document.querySelectorAll("#menu-items li");
+    // menuItems.forEach(item => {
+    //     if (item.classList.contains("selected")) {
+    //         order_list += item.innerText + "\n";
+    //     }
+    // });
+
+    order_list += "Total Price: " + totalCost;
+    console.log("YOUR ORDER IS SUCCESSFULLY PLACED"+ order_list);
+    alert("YOUR ORDER IS SUCCESSFULLY PLACED\n"+ order_list);
+    order_list="";
+    
+    createTable(items, prices);
+    // window.location.href = "order.html";
+
 }
+
+
+
+
+
+
+
+
+
+
+    function createTable(items, prices) {
+        console.log(items);
+        localStorage.setItem('items', JSON.stringify(items));
+localStorage.setItem('prices', JSON.stringify(prices));
+localStorage.setItem('totalCost', totalCost);
+
+        // Ensure totalCost starts from 0
+         
+    
+        // Get the container to hold the table
+        const tableContainer = document.getElementsByClassName('table-container');
+    
+        // Clear any previous table in the container
+        // tableContainer.innerHTML = "heool";
+    
+        let tableHTML = `<table border="1">
+        <tr>
+            <th>Item</th>
+            <th>Price</th>
+        </tr>`;
+
+    // Populate the table rows with items and prices
+    items.forEach((item, index) => {
+        tableHTML += `<tr>
+            <td>${item}</td>
+            <td>₹${prices[index]}</td>
+        </tr>`;
+    });
+
+    // Add total row
+    tableHTML += `<tr>
+        <td style="font-weight: bold;">Total</td>
+        <td style="font-weight: bold;">₹${totalCost}</td>
+    </tr>`;
+
+    // Close the table tag
+    tableHTML += `</table>`;
+
+    // Set the innerHTML of the table container
+    tableContainer.innerHTML = tableHTML;
+    window.location.href = "order.html";
+       
+    }
+    // Store the arrays and total cost in localStorage
+
+// Redirect to order.html to display the table
+// window.location.href = "order.html";
+ 
+    
