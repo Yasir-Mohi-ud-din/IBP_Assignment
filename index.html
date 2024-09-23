@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Ordering - IITGn Outlets</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <h1>IITGn Outlets Food Ordering System</h1>
+    <p>Select an outlet to view the menu and place your order</p>
+</header>
+
+<section class="outlets">
+    <div class="outlet" onclick="showMenu('Dawat')">
+        <img src="dawat.jpg" alt="Canteen Logo">
+        <h3>Dawat</h3>
+        <p>Operational Time: 9:00 AM - 10:00 PM</p>
+    </div>
+    <div class="outlet" onclick="showMenu('TeaPost')">
+        <img src="tea_post.jpg" alt="Food Court Logo">
+        <h3>Tea Post</h3>
+        <p>Operational Time: 11:00 AM - 11:00 PM</p>
+    </div>
+    <div class="outlet" onclick="showMenu('cafe')">
+        <img src="cafe.png" alt="Cafe Logo">
+        <h3>Cafe</h3>
+        <p>Operational Time: 8:00 AM - 8:00 PM</p>
+    </div>
+</section>
+
+<section id="menu-section" class="menu" ">
+    <h2 id="outlet-name">Menu</h2>
+    <ul id="menu-items" class="menu-items"></ul>
+    <div class="cart">
+        <p>Total Cost: ₹<span id="total-cost">0</span></p>
+    </div>
+    <button class="place-order-btn" onclick="placeOrder()">Place Order</button>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
