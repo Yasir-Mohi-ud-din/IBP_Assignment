@@ -30,6 +30,11 @@ let items = [];
 let prices = [];
 
 function showMenu(outlet) {
+     totalCost = 0;
+ order_list="";
+ items = [];
+ prices = [];
+
     const outletName = outlet.charAt(0).toUpperCase() + outlet.slice(1);
     document.getElementById("outlet-name").textContent = outletName + " Menu";
     const menuItems = menus[outlet];
@@ -52,7 +57,7 @@ function showMenu(outlet) {
 
 function addToCart(price, item) {
     totalCost += price;
-    order_list += item + "price: " + price + "\n";
+    order_list += item + " : " + price + "\n";
     items.push(item);
     prices.push(price);
 
